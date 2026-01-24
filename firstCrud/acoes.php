@@ -58,3 +58,20 @@ if (isset($_POST['update_usuario'])) {
         exit;
     }
 }
+
+if(isset($_POST['delete_usuario'])) {
+    header('Location: index.php');
+    $usuario_id = mysqli_real_escape_string($conexao, $_POST['delete_usuario']);
+
+    $sql = "DELETE FROM usuarios WHERE id='$usuario_id'";
+
+    mysqli_query($conexao, $sql);
+
+    if (mysqli_affected_rows($conexao) > 0) {
+        $_SESSION['mensagem'] = "Usuário excluído com sucesso.";
+    } else {
+        $_SESSION['mensagem'] = "Erro ao excluir usuário.";
+        header('Location: index.php');
+        exit;
+    }
+}
